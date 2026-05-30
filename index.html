@@ -1,0 +1,444 @@
+<html>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.6s ease-out;
+  position: relative;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.screen {
+  display: none;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.back-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.back-button.active {
+  display: flex;
+}
+
+.hearts {
+  font-size: 40px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+h1 {
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.button-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  height: 60px;
+}
+
+.btn {
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-yes:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-no {
+  background: #f0f0f0;
+  color: #333;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-no:hover {
+  background: #e0e0e0;
+}
+
+.celebration {
+  font-size: 60px;
+  margin: 20px 0;
+  animation: bounce 0.6s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.message {
+  font-size: 24px;
+  color: #764ba2;
+  margin: 20px 0;
+  font-weight: bold;
+  animation: heartbeat 1s ease-in-out;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.gif-container {
+  width: 100%;
+  height: 250px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+}
+
+.gif-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.emoji-rain {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  font-size: 24px;
+}
+
+.details {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px 0;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.detail-item {
+  margin: 10px 0;
+  font-weight: 500;
+}
+
+.confirm-btn {
+  background: white;
+  color: #764ba2;
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.confirm-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.final-message {
+  font-size: 20px;
+  color: #764ba2;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.navigation-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  background: #f0f0f0;
+  color: #333;
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  display: none;
+}
+
+.nav-btn:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.nav-btn.active {
+  display: inline-block;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+</style>
+
+<div class="container">
+  <!-- Back button -->
+  <button class="back-button" id="backBtn" onclick="goBack()">←</button>
+
+  <!-- Screen 1: Question -->
+  <div id="screen1" class="screen active">
+    <div class="hearts">💜✨</div>
+    <h1>Veux-tu aller à une date avec moi ?</h1>
+    <p style="font-size: 18px; margin-top: 30px;">Je te promets une soirée mémorable 😊</p>
+    
+    <div class="button-container">
+      <button class="btn btn-yes" onclick="goToYes()">Oui ❤️</button>
+      <button class="btn btn-no" id="noBtn" onmouseenter="runAwayButton()" onclick="runAwayButton()">Non</button>
+    </div>
+  </div>
+
+  <!-- Screen 2: Yes celebration -->
+  <div id="screen2" class="screen">
+    <div class="celebration">🎉</div>
+    <div class="message">Je t'aime ! ❤️</div>
+    
+    <div class="gif-container">
+      <a href="http://sonnette.centerblog.net"><img src="http://sonnette.s.o.pic.centerblog.net/22c1d180.gif" border="0"  alt="Image du Blog sonnette.centerblog.net" /></a><br /></a> 
+    </div>
+
+    <p style="font-size: 18px; color: #666; margin: 20px 0;">Laisse-moi te dire tous les détails...</p>
+    
+    <button class="confirm-btn" onclick="showDetails()">Voir les détails 💕</button>
+
+    <div class="navigation-buttons">
+      <button class="nav-btn active" onclick="showScreen('screen1')">← Retour</button>
+    </div>
+  </div>
+
+  <!-- Screen 3: Details -->
+  <div id="screen3" class="screen">
+    <div style="font-size: 50px; margin: 20px 0;">📍 Détails de notre date</div>
+    
+    <div class="details">
+      <div class="detail-item">📅 Date: <strong>2 Juin</strong></div>
+      <div class="detail-item">⏰ Heure: <strong>19:00</strong></div>
+      <div class="detail-item">🚗 Je viendrai au foyer et je vais te chercher</div>
+      <div class="detail-item">✨ Tenue: Sois jolie (tu l'es toujours 💕)</div>
+    </div>
+
+    <p style="color: #666; margin: 20px 0; font-size: 16px;">Je suis tellement excité de passer du temps avec toi...</p>
+
+    <div class="final-message">💜 À très bientôt, mon amour 💜</div>
+
+    <button class="confirm-btn" onclick="celebrate()">Yay ! 🎉</button>
+
+    <div class="navigation-buttons">
+      <button class="nav-btn active" onclick="showScreen('screen2')">← Retour</button>
+      <button class="nav-btn active" onclick="showScreen('screen1')">↺ Début</button>
+    </div>
+  </div>
+
+  <!-- Screen 4: Final celebration -->
+  <div id="screen4" class="screen">
+    <div style="font-size: 80px; margin: 20px 0; animation: spin 2s linear infinite;">💕</div>
+    <h1>C'est officiel !</h1>
+    <p>Je suis le plus heureux du monde 😍</p>
+    <p style="font-size: 18px; margin-top: 30px;">À très bientôt pour notre magnifique soirée 🌹</p>
+    <div style="font-size: 40px; margin-top: 30px;">🎭✨🌙</div>
+
+    <div class="navigation-buttons">
+      <button class="nav-btn active" onclick="showScreen('screen3')">← Retour</button>
+      <button class="nav-btn active" onclick="showScreen('screen1')">↺ Début</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let screenHistory = ['screen1'];
+
+function runAwayButton() {
+  const noBtn = document.getElementById('noBtn');
+  const maxX = window.innerWidth - 150;
+  const maxY = window.innerHeight - 100;
+  
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+  
+  noBtn.style.position = 'fixed';
+  noBtn.style.left = randomX + 'px';
+  noBtn.style.top = randomY + 'px';
+  noBtn.style.transform = 'none';
+}
+
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+  document.getElementById(screenId).classList.add('active');
+  
+  // Mettre à jour le bouton retour
+  updateBackButton(screenId);
+}
+
+function updateBackButton(screenId) {
+  const backBtn = document.getElementById('backBtn');
+  
+  if (screenId === 'screen1') {
+    backBtn.classList.remove('active');
+  } else {
+    backBtn.classList.add('active');
+  }
+}
+
+function goBack() {
+  if (screenHistory.length > 1) {
+    screenHistory.pop();
+    const previousScreen = screenHistory[screenHistory.length - 1];
+    
+    document.querySelectorAll('.screen').forEach(screen => {
+      screen.classList.remove('active');
+    });
+    document.getElementById(previousScreen).classList.add('active');
+    updateBackButton(previousScreen);
+  }
+}
+
+function goToYes() {
+  screenHistory.push('screen2');
+  showScreen('screen2');
+  createConfetti();
+}
+
+function showDetails() {
+  screenHistory.push('screen3');
+  showScreen('screen3');
+}
+
+function celebrate() {
+  screenHistory.push('screen4');
+  showScreen('screen4');
+  createConfetti();
+}
+
+function createConfetti() {
+  const emojis = ['💕', '💜', '✨', '🎉', '🌹', '😊', '💑'];
+  for (let i = 0; i < 20; i++) {
+    const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+    const element = document.createElement('div');
+    element.className = 'emoji-rain';
+    element.textContent = emoji;
+    element.style.left = Math.random() * 100 + '%';
+    element.style.top = '-30px';
+    document.body.appendChild(element);
+
+    let top = -30;
+    const interval = setInterval(() => {
+      top += 3;
+      element.style.top = top + 'px';
+      if (top > window.innerHeight) {
+        clearInterval(interval);
+        element.remove();
+      }
+    }, 10);
+  }
+}
+</script>
+</html>
